@@ -33,6 +33,8 @@ class ArticlesController extends Controller {
     {
         $article = Article::findOrFail($id);
 
+        dd($article->published_at);
+
         return view('articles.show', compact('article'));
     }
 

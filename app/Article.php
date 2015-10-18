@@ -20,6 +20,12 @@ class Article extends Model {
     ];
 
     /**
+     * Make sure published_at has a proper Carbon date format
+     * @var array
+     */
+    protected $dates = ['published_at'];
+
+    /**
      * Make sure only published articles are displayed.
      * @param $query
      */
