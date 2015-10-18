@@ -29,6 +29,15 @@ class Article extends Model {
     }
 
     /**
+     * Scope for unpublished articles
+     * @param $query
+     */
+    public function scopeUnpublished($query)
+    {
+        $query->where('published_at', '>', Carbon::now());
+    }
+
+    /**
      * Mutator to add timestamp to published_at
      * @param $date
      */
