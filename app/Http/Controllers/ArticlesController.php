@@ -1,11 +1,8 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 use App\Article;
-
-use App\Http\Requests\CreateArticleRequest;
-use Carbon\Carbon;
+use App\Http\Requests\ArticleRequest;
 
 /**
  * Class ArticlesController
@@ -15,6 +12,7 @@ class ArticlesController extends Controller {
 
     /**
      * Show all published articles
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -26,6 +24,7 @@ class ArticlesController extends Controller {
 
     /**
      * Show specific article
+     *
      * @param $id
      * @return \Illuminate\View\View
      */
@@ -33,13 +32,12 @@ class ArticlesController extends Controller {
     {
         $article = Article::findOrFail($id);
 
-        dd($article->published_at);
-
         return view('articles.show', compact('article'));
     }
 
     /**
      * Show view for creating a new article
+     *
      * @return \Illuminate\View\View
      */
     public function create()
@@ -49,12 +47,40 @@ class ArticlesController extends Controller {
 
     /**
      * Store the new article in the database
-     * @param CreateArticleRequest $request
+     *
+     * @param ArticleRequest $request
      * @return Response
      */
-    public function store(CreateArticleRequest $request)
+    public function store(ArticleRequest $request)
     {
         Article::create($request->all());
+
+        return redirect('articles');
+    }
+
+    /**
+     * Edit an article
+     * @param $id
+     * @return \Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('articles.edit', compact('article'));
+    }
+
+    /**
+     * Update the article in the database
+     *
+     * @param $id
+     * @param ArticleRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update($id, ArticleRequest $request)
+    {
+        $article = Article::findOrFail($id);
+
+        $article->update($request->all());
 
         return redirect('articles');
     }
