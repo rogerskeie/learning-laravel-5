@@ -4,8 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Article;
 
+use App\Http\Requests\CreateArticleRequest;
 use Carbon\Carbon;
-use Request;
 
 /**
  * Class ArticlesController
@@ -49,11 +49,12 @@ class ArticlesController extends Controller {
 
     /**
      * Store the new article in the database
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param CreateArticleRequest $request
+     * @return Response
      */
-    public function store()
+    public function store(CreateArticleRequest $request)
     {
-        Article::create(Request::all());
+        Article::create($request->all());
 
         return redirect('articles');
     }
