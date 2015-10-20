@@ -11,22 +11,26 @@ class Article extends Model {
 
     /**
      * The attributes that are mass assignable.
+     *
      * @var array
      */
     protected $fillable = [
         'title',
         'body',
-        'published_at'
+        'published_at',
+        'user_id' // Temporary
     ];
 
     /**
-     * Make sure published_at has a proper Carbon date format
+     * Make sure published_at has a proper Carbon date format.
+     *
      * @var array
      */
     protected $dates = ['published_at'];
 
     /**
      * Make sure only published articles are displayed.
+     *
      * @param $query
      */
     public function scopePublished($query)
@@ -35,7 +39,8 @@ class Article extends Model {
     }
 
     /**
-     * Scope for unpublished articles
+     * Scope for unpublished articles.
+     *
      * @param $query
      */
     public function scopeUnpublished($query)
@@ -44,12 +49,23 @@ class Article extends Model {
     }
 
     /**
-     * Mutator to add timestamp to published_at
+     * Mutator to add timestamp to published_at.
+     *
      * @param $date
      */
     public function setPublishedAtAttribute($date)
     {
         $this->attributes['published_at'] = Carbon::parse($date);
+    }
+
+    /**
+     * An article is owned by a user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
 }

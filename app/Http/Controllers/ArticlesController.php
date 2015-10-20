@@ -60,6 +60,7 @@ class ArticlesController extends Controller {
 
     /**
      * Edit an article
+     *
      * @param $id
      * @return \Illuminate\View\View
      */
