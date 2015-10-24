@@ -31,13 +31,11 @@ class ArticlesController extends Controller {
     /**
      * Show specific article
      *
-     * @param $id
+     * @param Article $article
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(Article $article)
     {
-        $article = Article::findOrFail($id);
-
         return view('articles.show', compact('article'));
     }
 
@@ -72,26 +70,23 @@ class ArticlesController extends Controller {
     /**
      * Edit an article
      *
-     * @param $id
+     * @param Article $article
      * @return \Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        $article = Article::findOrFail($id);
         return view('articles.edit', compact('article'));
     }
 
     /**
      * Update the article in the database
      *
-     * @param $id
+     * @param Article $article
      * @param ArticleRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update($id, ArticleRequest $request)
+    public function update(Article $article, ArticleRequest $request)
     {
-        $article = Article::findOrFail($id);
-
         $article->update($request->all());
 
         return redirect('articles');
