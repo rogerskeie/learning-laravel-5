@@ -60,9 +60,9 @@ class ArticlesController extends Controller {
      */
     public function store(ArticleRequest $request)
     {
-        $article = new Article($request->all());
+        Auth::user()->articles()->create($request->all());
 
-        Auth::user()->articles()->save($article);
+        flash()->overlay('Your article has been successfully created!', 'Good Job');
 
         return redirect('articles');
     }
